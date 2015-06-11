@@ -1,5 +1,3 @@
-import java.lang.Math;
-
 class SpecialPythagoreanTriplet {
   public static void main (String[] args) {
     int a = 0 , b = 0, c = 0;
