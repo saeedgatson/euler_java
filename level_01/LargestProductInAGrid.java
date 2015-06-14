@@ -29,6 +29,8 @@ public class LargestProductInAGrid {
     System.out.printf("Greatest product of %d adjacent numbers to the right is %d%n", 4, prodInGrid.greatestProductRight(4));
     System.out.printf("Greatest product of %d adjacent numbers to the down is %d%n", 4, prodInGrid.greatestProductDown(4));
     System.out.printf("Greatest product of %d adjacent numbers to the up is %d%n", 4, prodInGrid.greatestProductUp(4));
+    System.out.printf("Greatest product of %d adjacent numbers to the left diagonal is %d%n", 4, prodInGrid.greatestProductLeftDiagonal(4));
+    System.out.printf("Greatest product of %d adjacent numbers to the right diagonal is %d%n", 4, prodInGrid.greatestProductRightDiagonal(4));
   }
 
   private long greatestProductLeft(int adjacent) {
@@ -87,6 +89,38 @@ public class LargestProductInAGrid {
       for(int row = grid.length; row > adjacent; row--) {
         for(int count = adjacent; count > 0; count--) {
           currentProduct *= grid[row - count][col];
+        }
+        biggestProduct = getLargest(biggestProduct, currentProduct);
+        currentProduct = 1;
+      }
+    }
+    return biggestProduct;
+  }
+
+  private long greatestProductLeftDiagonal(int adjacent) {
+    long biggestProduct = 0;
+    long currentProduct = 1;
+
+    for(int row = 0; row < grid.length - adjacent; row++) {
+      for(int col = 0; col < grid[0].length - adjacent; col++) {
+        for(int count = 0; count < adjacent; count++) {
+          currentProduct *= grid[row + count][col + count];
+        }
+        biggestProduct = getLargest(biggestProduct, currentProduct);
+        currentProduct = 1;
+      }
+    }
+    return biggestProduct;
+  }
+
+  private long greatestProductRightDiagonal(int adjacent) {
+    long biggestProduct = 0;
+    long currentProduct = 1;
+
+    for(int row = grid.length; row > adjacent ; row--) {
+      for(int col = grid[0].length; col > adjacent; col--) {
+        for(int count = adjacent; count > 0; count--) {
+          currentProduct *= grid[row - count][col - count];
         }
         biggestProduct = getLargest(biggestProduct, currentProduct);
         currentProduct = 1;
