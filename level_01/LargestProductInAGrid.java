@@ -25,12 +25,16 @@ public class LargestProductInAGrid {
 
   public static void main(String[] args) {
     LargestProductInAGrid prodInGrid = new LargestProductInAGrid();
-    System.out.printf("Greatest product of %d adjacent numbers to the left is %d%n", 4, prodInGrid.greatestProductLeft(4));
-    System.out.printf("Greatest product of %d adjacent numbers to the right is %d%n", 4, prodInGrid.greatestProductRight(4));
-    System.out.printf("Greatest product of %d adjacent numbers to the down is %d%n", 4, prodInGrid.greatestProductDown(4));
-    System.out.printf("Greatest product of %d adjacent numbers to the up is %d%n", 4, prodInGrid.greatestProductUp(4));
-    System.out.printf("Greatest product of %d adjacent numbers to the left diagonal is %d%n", 4, prodInGrid.greatestProductLeftDiagonal(4));
-    System.out.printf("Greatest product of %d adjacent numbers to the right diagonal is %d%n", 4, prodInGrid.greatestProductRightDiagonal(4));
+    System.out.printf("Greatest product of %d adjacent numbers in the grid is %d%n", 4, prodInGrid.greatestProductInGrid(4));
+  }
+
+  private long greatestProductInGrid(int adjacent) {
+    long biggestProduct = 0;
+    biggestProduct = getLargest(biggestProduct, greatestProductLeft(adjacent));
+    biggestProduct = getLargest(biggestProduct, greatestProductDown(adjacent));
+    biggestProduct = getLargest(biggestProduct, greatestProductFallingDiagonal(adjacent));
+    biggestProduct = getLargest(biggestProduct, greatestProductRisingDiagonal(adjacent));
+    return biggestProduct;
   }
 
   private long greatestProductLeft(int adjacent) {
@@ -97,7 +101,7 @@ public class LargestProductInAGrid {
     return biggestProduct;
   }
 
-  private long greatestProductLeftDiagonal(int adjacent) {
+  private long greatestProductFallingDiagonal(int adjacent) {
     long biggestProduct = 0;
     long currentProduct = 1;
 
@@ -113,14 +117,14 @@ public class LargestProductInAGrid {
     return biggestProduct;
   }
 
-  private long greatestProductRightDiagonal(int adjacent) {
+  private long greatestProductRisingDiagonal(int adjacent) {
     long biggestProduct = 0;
     long currentProduct = 1;
 
-    for(int row = grid.length; row > adjacent ; row--) {
-      for(int col = grid[0].length; col > adjacent; col--) {
-        for(int count = adjacent; count > 0; count--) {
-          currentProduct *= grid[row - count][col - count];
+    for(int col = 0; col < grid[0].length - adjacent; col++) {
+      for(int row = 0; row < grid.length - adjacent; row++) {
+        for(int c1 = adjacent, c2 = 0; c1 > 0 && c2 < adjacent; c1--, c2++) {
+          currentProduct *= grid[row + c1][col + c2];
         }
         biggestProduct = getLargest(biggestProduct, currentProduct);
         currentProduct = 1;
