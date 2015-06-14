@@ -26,17 +26,33 @@ public class LargestProductInAGrid {
   public static void main(String[] args) {
     LargestProductInAGrid prodInGrid = new LargestProductInAGrid();
     System.out.printf("Greatest product of %d adjacent numbers to the left is %d%n", 4, prodInGrid.greatestProductLeft(4));
+    System.out.printf("Greatest product of %d adjacent numbers to the right is %d%n", 4, prodInGrid.greatestProductRight(4));
   }
 
   private long greatestProductLeft(int adjacent) {
     long biggestProduct = 0;
     long currentProduct = 1;
-    int count = 0;
 
     for(int row = 0; row < 1; row++) {
       for(int col = 0; col < grid[0].length - adjacent; col++) {
-        for(int i = 0; i < adjacent; i++) {
-          currentProduct *= grid[row][col+i];
+        for(int count = 0; count < adjacent; count++) {
+          currentProduct *= grid[row][col + count];
+        }
+        biggestProduct = getLargest(biggestProduct, currentProduct);
+        currentProduct = 1;
+      }
+    }
+    return biggestProduct;
+  }
+
+  private long greatestProductRight(int adjacent) {
+    long biggestProduct = 0;
+    long currentProduct = 1;
+
+    for(int row = 0; row < 1; row++) {
+      for(int col = grid[0].length; col > adjacent; col--) {
+        for(int count = adjacent; count > 0; count--) {
+          currentProduct *= grid[row][col - count];
         }
         biggestProduct = getLargest(biggestProduct, currentProduct);
         currentProduct = 1;
