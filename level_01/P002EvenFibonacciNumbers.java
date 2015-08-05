@@ -1,4 +1,4 @@
-class EvenFibonacciNumbers {
+class P002EvenFibonacciNumbers {
   private static int sum = 0;
   private static int maxValue = 4000000;
 

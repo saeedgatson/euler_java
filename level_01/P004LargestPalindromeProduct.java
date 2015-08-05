@@ -3,10 +3,10 @@ Find the largest palindrome made from the product of two 3-digit numbers.*/
 
 import java.lang.StringBuilder;
 
-public class LargestPalindromeProduct {
+public class P004LargestPalindromeProduct {
 
   public static void main(String[] args) {
-    LargestPalindromeProduct palindrome = new LargestPalindromeProduct();
+    P004LargestPalindromeProduct palindrome = new P004LargestPalindromeProduct();
     int largestPalindrome = 0;
     int product = 0;
     int num1 = 0;

@@ -1,6 +1,6 @@
-class SmallestMultiple {
+class P005SmallestMultiple {
   public static void main(String[] args) {
-    SmallestMultiple smallMulti = new SmallestMultiple();
+    P005SmallestMultiple smallMulti = new P005SmallestMultiple();
 
     System.out.println("Smallest multiple for 1 - 10 is : " + smallMulti.bruteForce(1, 10));
 

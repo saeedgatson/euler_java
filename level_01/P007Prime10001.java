@@ -1,8 +1,8 @@
 import java.lang.Math;
 
-class Prime10001 {
+class P007Prime10001 {
   public static void main (String[] args) {
-    Prime10001 primes = new Prime10001();
+    P007Prime10001 primes = new P007Prime10001();
     int value = 2;
 
     for(int i = 2, j = 0; j < 10001; i++ ) {

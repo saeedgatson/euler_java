@@ -1,6 +1,6 @@
-class SumSquareDifference {
+class P006SumSquareDifference {
   public static void main (String[] args) {
-    SumSquareDifference sumSquareDiff = new SumSquareDifference();
+    P006SumSquareDifference sumSquareDiff = new P006SumSquareDifference();
 
     System.out.println("The sum of square difference for first 10 natrual numbers is : " + (sumSquareDiff.squareOfSum(1,10) - sumSquareDiff.sumOfSquares(1,10)));
 

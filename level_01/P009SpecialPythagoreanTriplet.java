@@ -1,4 +1,4 @@
-class SpecialPythagoreanTriplet {
+class P009SpecialPythagoreanTriplet {
   public static void main (String[] args) {
     int a = 0 , b = 0, c = 0;
     int sum = 1000;

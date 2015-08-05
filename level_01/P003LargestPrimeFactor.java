@@ -1,6 +1,6 @@
-public class LargestPrimeFactor {
+public class P003LargestPrimeFactor {
   public static void main (String [] args) {
-    LargestPrimeFactor primeFactor = new LargestPrimeFactor();
+    P003LargestPrimeFactor primeFactor = new P003LargestPrimeFactor();
     System.out.println("Largest Prime Factor of 600851475143 is: " + primeFactor.largestPrimeFactor(600851475143L));
   }
 

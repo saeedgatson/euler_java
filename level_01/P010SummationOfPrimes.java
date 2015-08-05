@@ -1,5 +1,5 @@
-class SummationOfPrimes {
-  private static SummationOfPrimes summation = new SummationOfPrimes();
+class P010SummationOfPrimes {
+  private static P010SummationOfPrimes summation = new P010SummationOfPrimes();
 
   public static void main (String[] args) {
     System.out.printf("Sum of all primes below %d is %d%n", 10, summation.getSumOfPrimes(10));

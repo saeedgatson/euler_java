@@ -1,4 +1,4 @@
-class HighlyDivisibleTriangularNumber {
+class P012HighlyDivisibleTriangularNumber {
   public static void main(String[] args) {
     int divisors = 500;
     int i = 1;
