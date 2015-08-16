@@ -1,16 +1,22 @@
-// Using names.txt (right click and 'Save Link/Target As...'), a 46K text file containing over five-thousand first names, begin by sorting it into alphabetical order. Then working out the alphabetical value for each name, multiply this value by its alphabetical position in the list to obtain a name score.
+// Using names.txt (right click and 'Save Link/Target As...'), a 46K line file containing over five-thousand first names, begin by sorting it into alphabetical order. Then working out the alphabetical value for each name, multiply this value by its alphabetical position in the list to obtain a name score.
 // For example, when the list is sorted into alphabetical order, COLIN, which is worth 3 + 15 + 12 + 9 + 14 = 53, is the 938th name in the list. So, COLIN would obtain a score of 938 × 53 = 49714.
 // What is the total of all the name scores in the file?
 import java.util.*;
 import java.io.*;
 
 public class P022NameScores {
-  private static  HashMap<Character, Integer> alphaHash;
+  private static HashMap<Character, Integer> alphaHash;
+  private static ArrayList<String> names;
   public static void main(String[] args) {
     initAlphaMap();
-    System.out.println(alphaHash);
-    System.out.println(getScore("COLIN",938));
-    System.out.println(readFile());
+    readAndSortNames();
+    int i = 1;
+    int sum = 0;
+    for(String name: names) {
+      sum += getScore(name, i);
+      i++;
+    }
+    System.out.println("The total name score is " + sum);
   }
 
   private static void initAlphaMap() {
@@ -29,24 +35,27 @@ public class P022NameScores {
     return sum * index;
   }
 
-  private static String readFile() {
+  private static void readAndSortNames() {
+    names = new ArrayList<String>();
     File file = new File("P022Names.txt");
-    String list;
 		try
 		{
 			StringBuffer contents = new StringBuffer();
-			String text = null;
+			String line = null;
 			BufferedReader reader = new BufferedReader(new FileReader(file));
-			while ((text = reader.readLine()) != null)
+			while ((line = reader.readLine()) != null)
 			{
-				contents.append(text).append(System.getProperty("line.separator"));
+				line = line.replace("\"", "");
+        String[] lineNames = line.split(",");
+        for(int i = 0; i < lineNames.length; i++) {
+          names.add(lineNames[i]);
+        }
 			}
-			list = contents.toString();
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
-		return list;
+		Collections.sort(names);
 	}
 }
