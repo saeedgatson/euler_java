@@ -5,35 +5,43 @@
 import java.util.*;
 
 public class P035CircularPrimes {
-  public static boolean isPrime(int number) {
-    if(number < 1) return false;
-    if(number % 2 == 0) return false;
-    for(int i = 3; i * i <= number; i += 2) {
-        if(number % i == 0) return false;
-    }
-    return true;
-  }
+  private static final int LIMIT = (int) Math.pow(10, 6);
+  private static boolean[] isPrime = listPrimality(LIMIT - 1);
 
-  private static boolean isCircularPime(String prefix, String str) {
-    int n = str.length();
-    if(n == 0) {
-      if(!isPrime(Integer.parseInt(str))) return false;
-    }
-    else {
-      for (int i = 0; i < n; i++) {
-          permutation(prefix + str.charAt(i), str.substring(0, i) + str.substring(i+1));
-      }
-    }
-    return true;
-  }
+	private static boolean[] listPrimality(int n) {
+		if (n < 0)
+			throw new IllegalArgumentException("Negative array size");
+		boolean[] result = new boolean[n + 1];
+		if (n >= 2)
+			result[2] = true;
+		for (int i = 3; i <= n; i += 2)
+			result[i] = true;
+		// Sieve of Eratosthenes
+		for (int i = 3, end = (int) Math.sqrt(n); i <= end; i += 2) {
+			if (result[i]) {
+				// Note: i * i does not overflow
+				for (int j = i * i; j <= n; j += i << 1)
+					result[j] = false;
+			}
+		}
+		return result;
+	}
+
+  private static boolean isCircularPrime(int n) {
+		String s = Integer.toString(n);
+		for (int i = 0; i < s.length(); i++) {
+			if (!isPrime[Integer.parseInt(s.substring(i) + s.substring(0, i))])
+				return false;
+		}
+		return true;
+	}
 
   public static void main(String args[]) {
     int count = 0;
-    for(int i = 0; i < 1000000; i++){
-      if(isCircularPime("", Integer.toString(i))) {
-        count++;
-      }
-    }
-    System.out.println(count);
+		for (int i = 0; i < isPrime.length; i++) {
+			if (isCircularPrime(i))
+				count++;
+		}
+		System.out.println("Number of circular primes below one million is " + Integer.toString(count));
   }
 }
