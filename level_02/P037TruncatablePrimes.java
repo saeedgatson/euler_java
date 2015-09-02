@@ -6,10 +6,12 @@ public class P037TruncatablePrimes {
   private static boolean isTruncatablePrime(int number) {
     String numberString = Integer.toString(number);
     String reverseNumber = new StringBuffer(numberString).reverse().toString();
+
     for(int i = 0; i < numberString.length(); i++){
       if(!isPrime(Integer.parseInt(numberString.substring(i)))) {
         return false;
       }
+
       if(!isPrime(Integer.parseInt(reverseNumber.substring(i)))) {
         return false;
       }
@@ -18,9 +20,10 @@ public class P037TruncatablePrimes {
   }
 
   private static boolean isPrime(int number) {
+    if(number < 2) return false;
     Double rootDbl = Math.sqrt(number);
-    int root = rootDbl.intValue();
-    for(int i = 2; i <= root; i++) {
+    long root = rootDbl.longValue();
+    for(long i = 2; i <= root; i++) {
       if(number % i == 0) {
         return false;
       }
@@ -29,17 +32,13 @@ public class P037TruncatablePrimes {
   }
 
   public static void main(String[] args) {
-    int count = 0;
-    int sum = 0;
-    int num = 10;
-    while(count < 11) {
-      if(isTruncatablePrime(num)) {
-        sum += num;
-        System.out.println(num);
-        count++;
-      }
-      num++;
-    }
+    long sum = 0;
+		for (int count = 0, n = 10; count < 11; n++) {
+			if (isTruncatablePrime(n)) {
+				sum += n;
+				count++;
+			}
+		}
     System.out.println("The sum of the eleven truncatable primes is " + sum);
   }
 }
