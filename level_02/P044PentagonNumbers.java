@@ -6,53 +6,65 @@
 import java.lang.*;
 
 public class P044PentagonNumbers {
-  private static boolean isPentagonal(int number) {
-    int check = (( (int) Math.sqrt((24 * number) + 1)) + 1) / 6;
-    if(check % 1 != 0 ) return false;
-    return true;
+
+  private static boolean isPentagonal(long number) {
+    if (number <= 0)
+			return false;
+
+    double penTest = (Math.sqrt(1 + 24 * number) + 1.0) / 6.0;
+    return penTest == ((int)penTest);
   }
 
+  private static long pentagonalNumber(int x) {
+		return (long)x * (x * 3 - 1) >>> 1;
+	}
+
   private static void BrutForce() {
-    int result = 0;
+    long result = 0;
     boolean found = false;
     int i = 1;
     int k = 0;
 
     while(!found) {
       i++;
-      int pk = i * (3 * i - 1) / 2;
+      long pk = i * (3 * i - 1) / 2;
 
       for(int j = i - 1; j > 0; j--) {
-        int pj = j * (3 * j - 1) / 2;
+        long pj = j * (3 * j - 1) / 2;
         if(isPentagonal(pk - pj) && isPentagonal(pk + pj)) {
           result = pk - pj;
           k = j;
-          found = false;
+          found = true;
           break;
         }
       }
     }
-    System.out.println(result);
+    System.out.println("Brute Force");
+    System.out.format("k = %d, j = %d%n", i, k);
+    System.out.format("The value of D is %d%n", result);
   }
 
   private static void OtherWay() {
-    int answer = 0;
+    long answer = 0;
+
     for(int k = 1; k < 2999; k++) {
       for(int j = 1; j < 3000; j++) {
-        int pk = k * (3 * k - 1) / 2;
-        int pj = j * (3 * j - 1) / 2;
-        int d = Math.abs(pk - pj);
+        long pk = k * (3 * k - 1) / 2;
+        long pj = j * (3 * j - 1) / 2;
+        long d = Math.abs(pk - pj);
         if(!isPentagonal(d)) continue;
         if(isPentagonal(pj + pk)) {
           answer = d;
         }
       }
     }
-    System.out.println(answer);
+
+    System.out.println("The Other Way");
+    System.out.format("The value of D is %d%n", answer);
   }
 
   public static void main(String[] args) {
     OtherWay();
-    //BrutForce();
+    BrutForce();
   }
 }
