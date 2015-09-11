@@ -16,24 +16,19 @@ public class P045TriangularPentagonalAndHexagonal {
     return penTest == ((int)penTest);
   }
 
-  private static boolean isHexagonal(int number) {
-    double hexTest = (Math.sqrt(1 + 8 * number) + 1.0) / 4.0;
-    return hexTest == ((int)hexTest);
-  }
-
-  private static int getTriangle(int number) {
-    return (int) ((number * number + 1) / 2);
+  private static long getHexagonal(long number) {
+    return number * (2 * number - 1);
   }
 
   public static void main(String[] args) {
-    int number = 286;
+    int number = 144;
     while(true) {
-      int triangle = getTriangle(number);
-      if(isPentagonal(number) && isHexagonal(number)) {
+      long hexagonal = getHexagonal(number);
+      if(isPentagonal(hexagonal)) {
         break;
       }
       number++;
     }
-    System.out.format("The next triangle number after 40755 that's also pentagonal and hexagonal is %d.%n", getTriangle(number));
+    System.out.format("The next triangle number after 40755 that's also pentagonal and hexagonal is %d.%n", getHexagonal(number));
   }
 }

@@ -6,17 +6,20 @@ import java.util.*;
 
 public class P023NonAbundantSums {
   private static final int LIMIT = 28123;
-  private static boolean[] isAbundant = new boolean[LIMIT + 1];
+  private static boolean[] abundantArray = new boolean[LIMIT + 1];
 
   public static void main(String[] args) {
-    for (int i = 1; i < isAbundant.length; i++) {
-			isAbundant[i] = isAbundant(i);
+    for (int i = 1; i < abundantArray.length; i++) {
+			abundantArray[i] = isAbundant(i);
+      //System.out.println(abundantArray[i]);
     }
 
     int sum = 0;
 		for (int i = 1; i <= LIMIT; i++) {
-			if (!isSumOfAbundants(i))
+			if (!isSumOfAbundants(i)) {
+        System.out.println(i);
 				sum += i;
+      }
 		}
     System.out.println(sum);
   }
@@ -40,7 +43,7 @@ public class P023NonAbundantSums {
 
   private static boolean isSumOfAbundants(int n) {
 		for (int i = 0; i <= n; i++) {
-			if (isAbundant[i] && isAbundant[n - i])
+			if (abundantArray[i] && abundantArray[n - i])
 				return true;
 		}
 		return false;
