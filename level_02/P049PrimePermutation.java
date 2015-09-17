@@ -5,26 +5,38 @@
 import java.util.*;
 
 public class P049PrimePermutation {
-  public static boolean isPrime(int number) {
-    if(number < 1) return false;
-    if(number % 2 == 0) return false;
-    for(int i = 3; i * i <= number; i += 2) {
-        if(number % i == 0) return false;
-    }
-    return true;
-  }
+  private static final int LIMIT = 10000;
+  private static boolean[] isPrime = listPrimality(LIMIT - 1);
+
+	private static boolean[] listPrimality(int n) {
+		if (n < 0)
+			throw new IllegalArgumentException("Negative array size");
+		boolean[] result = new boolean[n + 1];
+		if (n >= 2)
+			result[2] = true;
+		for (int i = 3; i <= n; i += 2)
+			result[i] = true;
+
+		for (int i = 3, end = (int) Math.sqrt(n); i <= end; i += 2) {
+			if (result[i]) {
+				for (int j = i * i; j <= n; j += i << 1)
+					result[j] = false;
+			}
+		}
+		return result;
+	}
 
   public static String getSorted(int number) {
     char[] chars = String.valueOf(number).toCharArray();
     Arrays.sort(chars);
     String sorted = new String(chars);
-    return sorted;//Integer.parseInt(sorted);
+    return sorted;
   }
 
   private static boolean isUnusual(int number) {
     int check1 = number + 3330;
     int check2 = number + 6660;
-    if(!isPrime(check1) && !isPrime(check2)) {
+    if(isPrime[check1] == false || isPrime[check2] == false || number == 1487) {
       return false;
     }
     String numberSorted = getSorted(number);
@@ -37,19 +49,13 @@ public class P049PrimePermutation {
   }
 
   public static void main(String[] args) {
-    int itr = 99;
-    int answer = 0;
-    while(true) {
-      if(itr == 1487) {
-        continue;
-      }
-
-      if(isUnusual(itr)){
-        answer = itr;
-        break;
-      }
-      itr++;
-    }
-    System.out.format("%d%d%d.%n",answer, answer + 3330, answer + 6660);
+    for (int itr = 1000; itr < LIMIT; itr++) {
+      if (isPrime[itr]) {
+        if (isUnusual(itr)) {
+					System.out.format("The 12-digit number that's formed by concatenating the three terms in this sequence is %d%d%d.%n", itr, itr + 3330, itr + 6660);
+          break;
+        }
+			}
+		}
   }
 }
