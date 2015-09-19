@@ -6,7 +6,8 @@
 
 public class P050ConsecutivePrimeSum {
   private static final int LIMIT = 1000000;
-  private static boolean[] isPrime = listPrimality(LIMIT - 1);
+  private static boolean[] isPrime = listPrimality(LIMIT);
+  private static int[] primes = listPrimes(LIMIT);
 
   private static boolean[] listPrimality(int n) {
 		if (n < 0)
@@ -26,20 +27,36 @@ public class P050ConsecutivePrimeSum {
 		return result;
 	}
 
+  private static int[] listPrimes(int n) {
+		boolean[] isprime = listPrimality(n);
+		int count = 0;
+		for (boolean b : isprime) {
+			if (b)
+				count++;
+		}
+
+		int[] result = new int[count];
+		for (int i = 0, j = 0; i < isprime.length; i++) {
+			if (isprime[i]) {
+				result[j] = i;
+				j++;
+			}
+		}
+		return result;
+	}
+
   public static void main(String[] args) {
     int sum = 0;
     int consecutive = 0;
     int answer = 0;
 
-    for(int start = 0; start < LIMIT - 1; start++) {
-      if(isPrime[start] == false) continue;
-      sum = start;
-      int ctr = 1;
+    for(int start = 0; start < primes.length; start++) {
+      //if(isPrime[start] != true) continue;
+      sum = 0;//start;
+      int ctr = 0;
 
-      for(int stop = start + 1; stop < LIMIT  - 1; stop++) {
-        if(isPrime[stop]) {
-          sum += stop;
-        }
+      for(int stop = start + 1; stop < primes.length; stop++) {
+        sum += primes[stop];
 
         if(sum >= LIMIT) {
           break;
