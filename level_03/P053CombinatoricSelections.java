@@ -5,32 +5,31 @@
 // It is not until n = 23, that a value exceeds one-million: 23C10 = 1144066.
 // How many, not necessarily distinct, values of  nCr, for 1 ≤ n ≤ 100, are greater than one-million?
 
+import java.math.BigInteger;
+
 public class P053CombinatoricSelections {
 
-  private static int factorial(int x) {
-    if (x == 0) return 1;
+  public static BigInteger factorial(int number) {
+		BigInteger product = BigInteger.ONE;
+		for (int i = 2; i <= number; i++)
+			product = product.multiply(BigInteger.valueOf(i));
+		return product;
+	}
 
-    int y = x;
-    for (int i = 1; i < x; i++) {
-        y *= i;
-    }
-    return y;
-  }
-
-  private static int combinatorics(int n, int r) {
-    // System.out.format("n is %d, and r is %d.%n", n, r);
-    // System.out.format("fac(n) is %d, fac(r) is %d, and fac(n - r) is %d.%n", factorial(n), factorial(r), factorial(n - r));
-    return factorial(n) / (factorial(r) * factorial(n - r));
+  private static BigInteger combinatorics(int n, int r) {
+    return factorial(n).divide(factorial(r).multiply(factorial(n - r)));
   }
 
   public static void main(String[] args) {
+    BigInteger MILLION = BigInteger.valueOf(1000000);
     int count = 0;
-    for(int n = 1; n < 100; n++) {
-      for(int r = 0; r <= 1; r++) {
-        if(combinatorics(n, r) > 1000000) {
+    for(int n = 1; n <= 100; n++) {
+      for(int r = 0; r <= n; r++) {
+        if(combinatorics(n, r).compareTo(MILLION) > 0) {
           count++;
         }
       }
     }
+    System.out.format("There are %d, not necessarily distinct, values of nCr, for 1 ≤ n ≤ 100, that are greater than one-million.%n" ,count);
   }
 }
