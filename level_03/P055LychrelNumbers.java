@@ -8,35 +8,38 @@
 // Surprisingly, there are palindromic numbers that are themselves Lychrel numbers; the first example is 4994.
 // How many Lychrel numbers are there below ten-thousand?
 
+import java.math.BigInteger;
+
 public class P055LychrelNumbers {
 
-  private static boolean isPalindrome(long number) {
-    String numberString = Long.toString(number);
-    String reversedString = new StringBuilder(numberString).reverse().toString();
-    return numberString.equals(reversedString);
+  private static boolean isPalindrome(String number) {
+    String reversedString = new StringBuilder(number).reverse().toString();
+    return number.equals(reversedString);
   }
 
-  private static boolean isLychrel(long number) {
-    long iterations = 0;
+  private static boolean isLychrel(int number) {
+    BigInteger numberBig = BigInteger.valueOf(number);
+    int iterations = 0;
     while(iterations < 50) {
-      String numberString = Long.toString(number);
-      number = number + Long.valueOf(new StringBuilder(numberString).reverse().toString());
-      if(isPalindrome(number)){
+      String current = numberBig.toString();
+      numberBig = numberBig.add(new BigInteger(new StringBuilder(current).reverse().toString()));
+      if(isPalindrome(numberBig.toString())){
         return false;
       }
+      iterations++;
     }
     return true;
   }
 
   public static void main(String[] args) {
-    long count = 0;
+    int count = 0;
 
-    for(long num = 0; num < 10000; num++) {
+    for(int num = 0; num < 10000; num++) {
       if(isLychrel(num)) {
         count++;
       }
     }
 
-    System.out.format("There are %d Lychrel numbers below ten-thousand?",count);
+    System.out.format("There are %d Lychrel numbers below ten-thousand?%n",count);
   }
 }
