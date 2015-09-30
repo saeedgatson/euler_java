@@ -17,7 +17,7 @@ public class P051PrimeDigitReplacements {
   }
 
   private int[] fillPattern(int[] pattern, int number) {
-    int[] filledPattern =new int[pattern.length];
+    int[] filledPattern = new int[pattern.length];
     int temp = number;
 
     for(int i = filledPattern.length - 1; 0 <= i; i--) {
@@ -80,7 +80,7 @@ public class P051PrimeDigitReplacements {
 
       boolean[][] patterns = (i < 100) ? fiveDigitPattern : sixDigitPattern;
 
-      for(int j = 0; j < patterns[0][1].length; j++) {
+      for(int j = 0; j < patterns.length; j++) {
         for (int k = 0; k <=2; k++ ) {
           if (patterns[j][0] == true && k == 0) continue;
 
